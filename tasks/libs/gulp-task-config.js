@@ -45,7 +45,7 @@ export function pipeTimer (taskname = 'some task') {
 }
 
 export function autoRegister (TASK_NAME, bundleFn, devModelFn) {
-  const conf = gulp.config(['tasks', TASK_NAME])['default']
+  const conf = gulp.config(['tasks', TASK_NAME]).default
 
   if (conf.files && _.isArray(conf.files)) {
     return mergeStream.apply(gulp, _.map(conf.files, register.bind(gulp, conf.options)))

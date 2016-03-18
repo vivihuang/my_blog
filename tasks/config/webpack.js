@@ -13,7 +13,8 @@ export default {
     cache: true,
     output: {
       publicPath: "/public/",
-      filename: "bundle.js"
+      filename: "bundle.js",
+      chunkFilename: "[id].bundle.js"
     },
     module: {
       loaders: [
