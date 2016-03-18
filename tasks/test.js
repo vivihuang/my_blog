@@ -1,12 +1,14 @@
 import gulp from 'gulp'
 import path from 'path'
 import mocha from 'gulp-mocha'
+import { Instrumenter } from 'isparta';
+import istanbul from 'gulp-istanbul'
 
 const TASK_NAME = 'test'
 
 function preTest (fileConf) {
   return gulp.src(fileConf.src, {read: false})
-    .pipe(istanbul({instrumenter: isparta.Instrumenter}))
+    .pipe(istanbul({instrumenter: Instrumenter}))
     .pipe(istanbul.hookRequire())
 }
 
@@ -15,7 +17,6 @@ function testOnce (fileConf) {
   preTest(fileConf)
   return gulp.src(fileConf.src)
     .pipe(mocha())
-    // Creating the reports after tests ran
     .pipe(istanbul.writeReports())
 }
 
