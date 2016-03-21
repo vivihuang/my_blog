@@ -14,6 +14,9 @@ export default {
   ],
   options: {
     cache: true,
+    entry: {
+      bundle: `${gulp.config('base.src')}/index.js`
+    },
     output: {
       publicPath: "/public/",
       filename: bundleFile
@@ -36,7 +39,7 @@ export default {
     plugins: [
       new webpack.optimize.CommonsChunkPlugin({name: "vendor", filename: vendorFile,
           minChunks: (module, count) => {
-            return module.resource && module.resource.indexOf(gulp.config('base.src')) === -1;
+            return module.resource && module.resource.indexOf(gulp.config('base.src')) === -1
           }
       }),
       new webpack.optimize.OccurenceOrderPlugin(),

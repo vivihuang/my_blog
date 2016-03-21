@@ -1,19 +1,19 @@
 import 'babel-register'
 import gulp from 'gulp'
+import path from 'path'
 import requireDir from 'require-dir'
 import gulpTaskConfig from './tasks/libs/gulp-task-config'
 
 gulpTaskConfig(gulp)
 
-requireDir('./tasks')
+requireDir(path.join(__dirname, 'tasks'))
 
-gulp.config('base.root', '.')
-gulp.config('base.src', './src')
-gulp.config('base.dist', './public')
-gulp.config('base.test', './test')
-gulp.config('templates', '../templates')
+gulp.config('base.root', __dirname)
+gulp.config('base.src', path.join(__dirname, 'src'))
+gulp.config('base.dist', path.join(__dirname, 'public'))
+gulp.config('base.test', path.join(__dirname, 'test'))
 
-gulp.config('tasks', requireDir('./tasks/config'))
+gulp.config('tasks', requireDir(path.join(__dirname, 'tasks', 'config')))
 
 gulp.config('tasks.build', {
   taskQueue: [
