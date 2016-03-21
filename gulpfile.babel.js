@@ -20,7 +20,7 @@ gulp.config('tasks.build', {
     'clean',
     'copy',
     'sass',
-    'standard',
+    'lint',
     'webpack'
   ],
   afterTasks: ['manifest']
