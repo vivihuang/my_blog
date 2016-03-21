@@ -2,7 +2,8 @@ import path from 'path'
 import _ from 'lodash'
 import gulp from 'gulp'
 import gutil from 'gulp-util'
-import webpack from 'webpack-stream'
+import webpack from 'webpack'
+import webpack_stream from 'webpack-stream'
 import changed from 'gulp-changed'
 
 const TASK_NAME = 'webpack'
@@ -41,8 +42,9 @@ function webpackWatch (config) {
   config = whenInProductionDoUglify(config)
   return gulp.src(config.src)
     .on('error', err => { wrapWithPluginError(err) })
-    .pipe(webpack(config.options))
+    .pipe(webpack_stream(config.options))
     .pipe(gulp.dest(config.dest))
+    .pipe(gulp.pipeTimer(TASK_NAME))
 }
 
 function webpackOnce (config) {
@@ -53,8 +55,9 @@ function webpackOnce (config) {
       process.exit(1)
     })
     .pipe(changed(config.dest))
-    .pipe(webpack(config.options))
+    .pipe(webpack_stream(config.options))
     .pipe(gulp.dest(config.dest))
+    .pipe(gulp.pipeTimer(TASK_NAME))
 }
 
 function webpackTask () {

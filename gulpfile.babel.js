@@ -7,7 +7,7 @@ gulpTaskConfig(gulp)
 
 requireDir('./tasks')
 
-gulp.config('base.root', '..')
+gulp.config('base.root', '.')
 gulp.config('base.src', './src')
 gulp.config('base.dist', './public')
 gulp.config('base.test', './test')
@@ -22,7 +22,8 @@ gulp.config('tasks.build', {
     'sass',
     'standard',
     'webpack'
-  ]
+  ],
+  afterTasks: ['manifest']
 })
 
 gulp.task('dev', () => {
@@ -31,4 +32,3 @@ gulp.task('dev', () => {
 })
 
 gulp.task('default', ['build'])
-

@@ -1,19 +1,22 @@
 import gulp from 'gulp'
 import webpack from 'webpack'
+import ManifestPlugin from 'webpack-manifest-plugin'
 var node_modules_dir = `${gulp.config('base.root')}/node_modules`
+var vendorFile = process.env.NODE_ENV === 'production' ? "[hash].vendor.js" : 'vendor.js'
+var bundleFile = process.env.NODE_ENV === 'production' ? "[hash].bundle.js" : 'bundle.js'
 
 export default {
   files: [
     {
-      'src': `${gulp.config('base.src')}/index.js`,
-      'dest': `${gulp.config('base.dist')}`
+      src: `${gulp.config('base.src')}/index.js`,
+      dest: `${gulp.config('base.dist')}`
     }
   ],
   options: {
     cache: true,
     output: {
       publicPath: "/public/",
-      filename: "bundle.js"
+      filename: bundleFile
     },
     module: {
       loaders: [
@@ -31,13 +34,14 @@ export default {
       modulesDirectories: ['node_modules']
     },
     plugins: [
-      new webpack.optimize.CommonsChunkPlugin({name: "vendor", filename: "vendor.js",
+      new webpack.optimize.CommonsChunkPlugin({name: "vendor", filename: vendorFile,
           minChunks: (module, count) => {
             return module.resource && module.resource.indexOf(gulp.config('base.src')) === -1;
           }
       }),
       new webpack.optimize.OccurenceOrderPlugin(),
-      new webpack.HotModuleReplacementPlugin()
+      new webpack.HotModuleReplacementPlugin(),
+      new ManifestPlugin({basePath: '/public/'})
     ]
   }
 };
