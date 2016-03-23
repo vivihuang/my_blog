@@ -37,3 +37,4 @@ public
 .bundle
 .vagrant
 /vagrant/settings/local.py
+__pycache__
