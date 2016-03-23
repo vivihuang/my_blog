@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-PROJECT_NAME=$1
+PROJECT_NAME=vagrant
 
 DB_NAME=$PROJECT_NAME
 VIRTUALENV_NAME=$PROJECT_NAME
 
-PROJECT_DIR=/home/vagrant/$PROJECT_NAME
+PROJECT_DIR=/$PROJECT_NAME
 VIRTUALENV_DIR=/home/vagrant/.virtualenvs/$PROJECT_NAME
 LOCAL_SETTINGS_PATH="/$PROJECT_NAME/settings/local.py"
 
@@ -30,6 +30,9 @@ if ! command -v psql; then
     su - postgres -c "createuser -s vagrant"
 fi
 
+# postgresql setup for project
+su - vagrant -c "createdb $DB_NAME"
+
 # virtualenv global setup
 if ! command -v pip; then
     easy_install -U pip
@@ -39,11 +42,7 @@ if [[ ! -f /usr/local/bin/virtualenv ]]; then
 fi
 
 # bash environment global setup
-cp -p $PROJECT_DIR/etc/install/bashrc /home/vagrant/.bashrc
-
-# postgresql setup for project
-su - vagrant -c "createdb $DB_NAME"
-
+# cp -p $PROJECT_DIR/etc/install/bashrc /home/vagrant/.bashrc
 
 # virtualenv setup for project
 su - vagrant -c "/usr/local/bin/virtualenv $VIRTUALENV_DIR --python=/usr/bin/python3.4 && \
@@ -68,7 +67,7 @@ fi
 curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
-cd /vagrant/webapp
+cd $PROJECT_DIR/webapp
 sudo npm install -g gulp
 sudo npm install
 
