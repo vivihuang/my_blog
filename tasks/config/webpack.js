@@ -8,7 +8,7 @@ var bundleFile = process.env.NODE_ENV === 'production' ? "[hash].bundle.js" : 'b
 export default {
   files: [
     {
-      src: `${gulp.config('base.src')}/index.js`,
+      src: `${gulp.config('base.src')}/**/*.js`,
       dest: `${gulp.config('base.dist')}`
     }
   ],
