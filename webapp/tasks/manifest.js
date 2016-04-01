@@ -16,9 +16,9 @@ function manifestReplace (config) {
     }
   }
 
-  return gulp.src(config.templates + '/index.hbs')
+  return gulp.src(config.baseFile)
         .pipe(handlebars(manifestFile, handlebarOpts))
-        .pipe(rename('index.html'))
+        .pipe(rename(config.distFile))
         .pipe(gulp.dest(config.templates))
         .pipe(gulp.pipeTimer(TASK_NAME))
 }
