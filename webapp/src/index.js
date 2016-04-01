@@ -1,11 +1,11 @@
 import React from 'react'
 import ReactDom from 'react-dom'
+import { Router, Route, browserHistory } from 'react-router'
+import { App } from './components/App'
 
-const render = () => {
-  ReactDom.render(
-    <div>test</div>,
-    document.getElementById('main')
-  )
-}
-
-render()
+ReactDom.render(
+  <Router history={browserHistory}>
+    <Route path="/" component={App} />
+  </Router>,
+  document.getElementById('main')
+)
