@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% if memo_list %}
+    <ul>
+    {% for memo in memo_list %}
+        <li><p>{{ memo.content }}</p></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No memos are available.</p>
+{% endif %}

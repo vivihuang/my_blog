@@ -1,0 +1,19 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}Vivi's Todo List</title>
+</head>
+
+<body class="{% block section %}{% endblock %}">
+
+<div id="main" role="main"></div>
+
+<script src="{% static "vendor.js" %}"></script>
+<script src="{% static "bundle.js" %}"></script>
+
+{% block scripts %}{% endblock %}
+
+</body>
+</html>
