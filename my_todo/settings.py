@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'tastypie'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -126,3 +127,5 @@ STATIC_ROOT = os.path.join(SITE_ROOT, '../static')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'webapp/public')
 ]
+
+TASTYPIE_DEFAULT_FORMATS = ['json']
